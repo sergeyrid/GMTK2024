@@ -9,7 +9,7 @@ public class BaseEnemyProjectileController : MonoBehaviour
     public float damage = 1;
 
     private Vector2 direction = Vector2.right;
-    private Transform transform;
+    protected Transform transform;
 
     // Start is called before the first frame update
     void Start()
@@ -20,13 +20,6 @@ public class BaseEnemyProjectileController : MonoBehaviour
     void Update()
     {
         Move();
-    }
-
-    public void SetDirection(Vector2 dir)
-    {
-        direction = dir;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.SetPositionAndRotation(transform.position, Quaternion.AngleAxis(angle, Vector3.forward));
     }
 
     private void Move()
@@ -42,4 +35,13 @@ public class BaseEnemyProjectileController : MonoBehaviour
         // }
         Destroy(gameObject);
     }
+    
+    public void SetDirection(Vector2 dir)
+    {
+        direction = dir;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.SetPositionAndRotation(transform.position, Quaternion.AngleAxis(angle, Vector3.forward));
+    }
+
+    public void Fire() { }
 }
