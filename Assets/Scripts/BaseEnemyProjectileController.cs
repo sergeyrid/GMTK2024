@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnemyProjectileController : MonoBehaviour
+public abstract class BaseEnemyProjectileController : MonoBehaviour
 {
     public float speed = 1;
     public float damage = 1;
@@ -12,7 +12,7 @@ public class BaseEnemyProjectileController : MonoBehaviour
     protected Transform transform;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         transform = gameObject.transform;
     }
@@ -22,26 +22,26 @@ public class BaseEnemyProjectileController : MonoBehaviour
         Move();
     }
 
-    private void Move()
+    protected virtual void Move()
     {
         transform.Translate(speed * Time.deltaTime * Vector2.right);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    protected virtual void OnCollisionEnter2D(Collision2D other)
     {
-        // if (other.gameObject.CompareTag("Building"))
-        // {
-        //     other.gameObject.GetComponent<ZigurratController>().DealDamage(damage);
-        // }
+        if (other.gameObject.CompareTag("Building"))
+        {
+            other.gameObject.GetComponent<ZigurratController>().DealDamage(damage);
+        }
         Destroy(gameObject);
     }
     
-    public void SetDirection(Vector2 dir)
+    protected virtual void SetDirection(Vector2 dir)
     {
         direction = dir;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.SetPositionAndRotation(transform.position, Quaternion.AngleAxis(angle, Vector3.forward));
     }
 
-    public void Fire() { }
+    public virtual void Fire() {}
 }

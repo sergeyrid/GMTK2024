@@ -9,10 +9,9 @@ public class ArchEnemyProjectileController : BaseEnemyProjectileController
     public float forceRight = 1;
     public float forceUp = 1;
     
-    protected new Transform transform;
     private Rigidbody2D rb2d;
     
-    void Start()
+    void Awake()
     {
         transform = gameObject.transform;
         rb2d = gameObject.GetComponent<Rigidbody2D>();
@@ -20,8 +19,8 @@ public class ArchEnemyProjectileController : BaseEnemyProjectileController
     
     void Update() { }
 
-    public new void Fire()
+    public override void Fire()
     {
-        rb2d.AddRelativeForce(new Vector2(forceRight, forceUp) * speed);
+        rb2d.AddRelativeForce(new Vector2(forceRight, forceUp) * speed, ForceMode2D.Impulse);
     }
 }
