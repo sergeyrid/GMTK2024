@@ -5,7 +5,7 @@ using UnityEngine;
 public class PipeController : MonoBehaviour
 {
 
-    [SerializeField] public ZigurratController mainThing;
+    public ZigurratController mainThing;
     
     // Start is called before the first frame update
     void Start()
@@ -15,9 +15,8 @@ public class PipeController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
-        transform.localScale = new Vector3(1, mainThing.ZigguratCurrency, 1);
+        transform.localScale = new Vector3(1, mainThing.collectedCurrency+ 1, 1);
     }
 }

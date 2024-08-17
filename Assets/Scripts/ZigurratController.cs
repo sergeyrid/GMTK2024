@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static BuildingAbstract;
 
 
-public class ZigurratController : MonoBehaviour
+public class ZigurratController : BuildingAbstract
 {
 
-    public int GlobalCurrency;
-    public int ZigguratCurrency;
+    public float ZigguratCurrency;
+
 
     // Start is called before the first frame update
     void Start()
