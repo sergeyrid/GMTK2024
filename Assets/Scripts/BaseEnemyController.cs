@@ -4,36 +4,43 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BaseEnemyController : MonoBehaviour
+public abstract class BaseEnemyController : MonoBehaviour
 {
     public float hp;
     public float speed;
-    public Transform position;
-    public Vector3 direction = Vector3.right;
 
-    private void Start()
+    protected Transform transform;
+    protected bool direction = true;
+
+    protected virtual void Start()
     {
-        position = gameObject.transform;
+        transform = gameObject.transform;
     }
 
-    public void Attack()
+    protected virtual void Update()
     {
-        Console.WriteLine("IT ATTAK");
+        Move();
     }
 
-    public void Move()
+    protected abstract void Attack();
+
+    protected virtual void Move()
     {
-        position.SetPositionAndRotation(speed * , position.rotation);
-    }
-    
-    public void SetHp(float hp)
-    {
-        this.hp = hp;
+        float dir = 1;
+        if (!direction)
+        {
+            dir = -1;
+        }
+        transform.Translate(dir * speed * Time.deltaTime * Vector2.right);
     }
 
-    protected void FixedUpdate()
+    public void DealDamage(float damage)
     {
-        throw new NotImplementedException();
+        hp -= damage;
+        if (hp <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
 

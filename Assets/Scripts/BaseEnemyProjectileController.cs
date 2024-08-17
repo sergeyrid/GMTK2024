@@ -7,19 +7,26 @@ public abstract class BaseEnemyProjectileController : MonoBehaviour
 {
     public float speed = 1;
     public float damage = 1;
+    public float lifetime = 15;
 
-    private Vector2 direction = Vector2.right;
+    protected Vector2 direction = Vector2.right;
     protected Transform transform;
+    private float lifetimeCounter;
 
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         transform = gameObject.transform;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         Move();
+        lifetimeCounter += Time.deltaTime;
+        if (lifetimeCounter > lifetime)
+        {
+            Destroy(gameObject);
+        }
     }
 
     protected virtual void Move()
@@ -29,6 +36,10 @@ public abstract class BaseEnemyProjectileController : MonoBehaviour
 
     protected virtual void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Projectile"))
+        {
+            return;
+        }
         if (other.gameObject.CompareTag("Building"))
         {
             other.gameObject.GetComponent<ZigurratController>().DealDamage(damage);
@@ -36,7 +47,7 @@ public abstract class BaseEnemyProjectileController : MonoBehaviour
         Destroy(gameObject);
     }
     
-    protected virtual void SetDirection(Vector2 dir)
+    public virtual void SetDirection(Vector2 dir)
     {
         direction = dir;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
