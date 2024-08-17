@@ -6,10 +6,9 @@ using UnityEngine;
 
 public class GlobalCurrencyController : MonoBehaviour
 {
-
     public float currencyIncreaseRate = 1;
 	public List<BuildingAbstract> buildings;
-	public Text currencyText;
+	// public Text currencyText;
 
 	private float totalCurrency = 0;
 
@@ -32,7 +31,7 @@ public class GlobalCurrencyController : MonoBehaviour
 			buildings[buildingIndex].collectedCurrency += currencyIncreaseRate * buildings[buildingIndex].incomeRate / scaleSum; 		}
 		totalCurrency += currencyIncreaseRate;
 
-		currencyText.text = totalCurrency.ToString();
+		// currencyText.text = totalCurrency.ToString();
         
     }
 }

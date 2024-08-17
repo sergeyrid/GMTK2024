@@ -6,24 +6,20 @@ using static BuildingAbstract;
 
 public class ZigurratController : BuildingAbstract
 {
+    private TowerGrower grower;
+
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Awake() {
+        base.Awake();
+        grower = GetComponent<TowerGrower>();
     }
 
 
     public override void UpdateScale(float scale) {
-        scale += 1; 
-        
-        Vector3 prscale = gameObject.transform.localScale;
-        Vector3 pos = gameObject.transform.position;
-        pos.y -= prscale.y/2;
-        prscale.y = scale;
-        pos.y += prscale.y/2;
-        
-        gameObject.transform.localScale = prscale;
-        gameObject.transform.position = pos;
+        // if (growerObject.GetComponent<TowerGrower>() == null) {
+        //     Debug.Log("grower is null");
+        // }
+        grower.desiredScale = scale + 2;
     }
 
     public override void Die() {
