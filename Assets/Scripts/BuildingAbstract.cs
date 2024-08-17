@@ -41,7 +41,7 @@ public abstract class BuildingAbstract : MonoBehaviour
 
     public abstract void UpdateScale(float scale);
 
-    void FixedUpdate() {
+    protected void FixedUpdate() {
         UpdateScale(collectedCurrency);
 
         if(incomeRateTextMesh != null)
