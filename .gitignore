@@ -10,6 +10,7 @@
 
 # Visual Studio cache directory
 .vs/
+.vscode/
 
 # Gradle cache directory
 .gradle/
@@ -39,6 +40,9 @@ ExportedObj/
 
 # Unity3D generated file on crash reports
 sysinfo.txt
+
+# Editor Bullshit
+UserSettings/
 
 # Builds
 *.apk
