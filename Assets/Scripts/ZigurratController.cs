@@ -25,6 +25,11 @@ public class ZigurratController : BuildingAbstract
         gameObject.transform.localScale = prscale;
         gameObject.transform.position = pos;
     }
+
+    public override void Die() {
+        Debug.Log("I die" + GetHealth().ToString());
+    }
+
     // Update is called once per frame
     void Update()
     {

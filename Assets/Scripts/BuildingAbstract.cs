@@ -14,37 +14,28 @@ public abstract class BuildingAbstract : MonoBehaviour
 
     private float health = 100;
     private TextMeshProUGUI incomeRateTextMesh;
-    private SpriteRenderer buildingSprite;
+    private Collider2D buildingCollider;
 
-    void DealDamage(float damage) {
+    public void DealDamage(float damage) {
         health -= damage;
         if (health <= 0) {
-            Destroy(self);
+            Die();
         }
     }
 
+    public float GetHealth(){
+        return health;
+    }
+
+    public abstract void Die();     
+
     void Awake() {
-         buildingSprite = GetComponent<SpriteRenderer>();
+         buildingCollider = GetComponent<Collider2D>();
          incomeRateTextMesh = incomeRateText.GetComponent<TextMeshProUGUI>();       
     }
 
     void Start() {
 
-        // var smallPipeHeight = globalPipe.GetComponent<SpriteRenderer>().bounds.center.y - buildingSprite.bounds.center.y;
-
-        // Debug.Log("Instantiate");
-        // var smallPipeInstance = Instantiate(smallPipe, new Vector3(0, 0, 0), transform.rotation);
-        // var smallPipeTransform = smallPipeInstance.GetComponent<RectTransform>();
-        // // smallPipeTransform.localPosition = new Vector3(buildingSprite.center.x, buildingSprite.center.y, 0);
-        // smallPipeTransform.anchorMax = new Vector2(buildingSprite.bounds.center.x, buildingSprite.bounds.center.y); 
-        // smallPipeTransform.anchorMin = new Vector2(buildingSprite.bounds.center.x - 1, buildingSprite.bounds.center.y - smallPipeHeight); 
-        
-        //  incomeRateTextMesh = incomeRateText.GetComponent<TextMeshPro>();       
-        // if(incomeRateTextMesh == null)
-        // {
-        //     Debug.Log("SHYYYY");
-        //     incomeRateTextMesh = incomeRateText.AddComponent<TextMeshPro>();
-        // }
 
     }
 
@@ -53,16 +44,13 @@ public abstract class BuildingAbstract : MonoBehaviour
     void FixedUpdate() {
         UpdateScale(collectedCurrency);
 
-        // Debug.Log("SHYYYYyyyyy");
         if(incomeRateTextMesh != null)
         {
-            // Debug.Log("SHYYYY");
-            // incomeRateTextMesh = incomeRateText.AddComponent<TextMeshProUGUI>();
-            incomeRateTextMesh.text = collectedCurrency.ToString();
-            incomeRateTextMesh.transform.position = new Vector3(buildingSprite.bounds.max.x, buildingSprite.bounds.max.y + 1, 0);
+            incomeRateTextMesh.text = collectedCurrency.ToString().Substring(0, 4);
+            incomeRateTextMesh.transform.position = new Vector3(buildingCollider.bounds.center.x, buildingCollider.bounds.max.y + 1, 0);
         }
         else {
-            // Debug.Log("!SHYYYY");
+            Debug.Log("!SHYYYY");
         }
     }
 }
