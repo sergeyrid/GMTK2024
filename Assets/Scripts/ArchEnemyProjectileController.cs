@@ -11,16 +11,21 @@ public class ArchEnemyProjectileController : BaseEnemyProjectileController
     
     private Rigidbody2D rb2d;
     
-    void Awake()
+    protected override void Awake()
     {
-        transform = gameObject.transform;
+        base.Awake();
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
-    
-    void Update() { }
+
+    protected override void Update()
+    {
+        base.Update();
+    }
+
+    protected override void Move() { }
 
     public override void Fire()
     {
-        rb2d.AddRelativeForce(new Vector2(forceRight, forceUp) * speed, ForceMode2D.Impulse);
+        rb2d.AddRelativeForce(speed * new Vector2(forceRight * direction.x, forceUp), ForceMode2D.Impulse);
     }
 }
